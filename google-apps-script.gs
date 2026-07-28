@@ -30,9 +30,9 @@ function doPost(e) {
     "'" + (data.mobile || ""),
     Number(data.happy) || "",
     Number(data.respect) || "",
-    data.speed || "",
-    data.visitAgain || "",
-    data.recommend || "",
+    Number(data.speed) || "",
+    Number(data.visitAgain) || "",
+    Number(data.recommend) || "",
     data.improve || ""
   ]);
 

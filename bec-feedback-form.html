@@ -382,7 +382,7 @@ buildStars("happyStars","happyHint","happy");
 buildStars("respectStars","respectHint","respect");
 
 /* Choice chips */
-const choices = { speed: "", visit: "", recommend: "" };
+const choices = { speed: 0, visit: 0, recommend: 0 };
 
 function buildChips(containerId, key, options){
   const box = document.getElementById(containerId);
@@ -398,20 +398,21 @@ function buildChips(containerId, key, options){
     box.appendChild(b);
   });
 }
+/* Points: best = 5, middle = 3, worst = 1 */
 buildChips("speedChips","speed",[
-  {label:"\u{1F7E2} Fast", value:"Fast"},
-  {label:"\u{1F7E1} Average", value:"Average"},
-  {label:"\u{1F534} Slow", value:"Slow"}
+  {label:"\u{1F7E2} Fast", value:5},
+  {label:"\u{1F7E1} Average", value:3},
+  {label:"\u{1F534} Slow", value:1}
 ]);
 buildChips("visitChips","visit",[
-  {label:"✅ Yes", value:"Yes"},
-  {label:"\u{1F914} Maybe", value:"Maybe"},
-  {label:"❌ No", value:"No"}
+  {label:"✅ Yes", value:5},
+  {label:"\u{1F914} Maybe", value:3},
+  {label:"❌ No", value:1}
 ]);
 buildChips("recommendChips","recommend",[
-  {label:"✅ Yes", value:"Yes"},
-  {label:"\u{1F914} Maybe", value:"Maybe"},
-  {label:"❌ No", value:"No"}
+  {label:"✅ Yes", value:5},
+  {label:"\u{1F914} Maybe", value:3},
+  {label:"❌ No", value:1}
 ]);
 
 /* Submit */
