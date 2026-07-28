@@ -17,6 +17,7 @@
     --bg:#F2F6FB;
     --card:#FFFFFF;
     --ok:#1B8A4C;
+    --warn:#B3261E;
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   body{
@@ -72,11 +73,13 @@
     display:block;
     font-size:13px;
     font-weight:700;
-    letter-spacing:.4px;
+    letter-spacing:.3px;
     text-transform:uppercase;
     color:var(--blue);
     margin-bottom:8px;
+    line-height:1.45;
   }
+  .label .req{color:var(--warn);}
   .branch-box{
     display:flex;
     align-items:center;
@@ -90,6 +93,30 @@
     color:var(--blue-deep);
   }
   .branch-box .pin{color:var(--blue);font-size:18px;}
+  input[type=tel]{
+    width:100%;
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    padding:12px 14px;
+    font:inherit;
+    font-size:16px;
+    color:var(--ink);
+    background:#fff;
+  }
+  input[type=tel]:focus{outline:none;border-color:var(--blue);}
+  select{
+    width:100%;
+    border:1.5px solid var(--blue-tint-2);
+    border-radius:10px;
+    padding:12px 14px;
+    font:inherit;
+    font-size:16px;
+    font-weight:600;
+    color:var(--blue-deep);
+    background:var(--blue-tint);
+    appearance:auto;
+  }
+  select:focus{outline:none;border-color:var(--blue);}
   .stars{
     display:flex;
     gap:8px;
@@ -113,6 +140,30 @@
     background:var(--blue-tint);
   }
   .stars button:focus-visible{outline:2px solid var(--blue);outline-offset:2px;}
+  .chips{
+    display:flex;
+    gap:8px;
+  }
+  .chips button{
+    flex:1;
+    padding:13px 6px;
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    background:#fff;
+    font:inherit;
+    font-size:14.5px;
+    font-weight:600;
+    color:var(--ink);
+    cursor:pointer;
+    transition:transform .08s ease,border-color .12s ease,background .12s ease;
+  }
+  .chips button:active{transform:scale(.95);}
+  .chips button.on{
+    border-color:var(--blue);
+    background:var(--blue-tint);
+    color:var(--blue-deep);
+  }
+  .chips button:focus-visible{outline:2px solid var(--blue);outline-offset:2px;}
   .rate-hint{
     margin-top:7px;
     font-size:13px;
@@ -133,19 +184,6 @@
     background:#fff;
   }
   textarea:focus{outline:none;border-color:var(--blue);}
-  select{
-    width:100%;
-    border:1.5px solid var(--blue-tint-2);
-    border-radius:10px;
-    padding:12px 14px;
-    font:inherit;
-    font-size:16px;
-    font-weight:600;
-    color:var(--blue-deep);
-    background:var(--blue-tint);
-    appearance:auto;
-  }
-  select:focus{outline:none;border-color:var(--blue);}
   .submit{
     width:100%;
     padding:15px;
@@ -165,11 +203,10 @@
   .error{
     margin-top:12px;
     font-size:13.5px;
-    color:#B3261E;
+    color:var(--warn);
     text-align:center;
     min-height:18px;
   }
-  /* success state */
   .success{
     display:none;
     text-align:center;
@@ -220,26 +257,45 @@
     </div>
 
     <div class="field">
-      <label class="label">How neat is the branch?</label>
-      <div class="stars" id="neatStars" role="radiogroup" aria-label="Branch neatness rating"></div>
-      <div class="rate-hint" id="neatHint">Tap to rate</div>
+      <label class="label">&#128100; Civil ID Number <span class="req">*</span></label>
+      <input type="tel" id="civilId" inputmode="numeric" maxlength="12" placeholder="12-digit Civil ID" autocomplete="off">
     </div>
 
     <div class="field">
-      <label class="label">How is the service?</label>
-      <div class="stars" id="serviceStars" role="radiogroup" aria-label="Service rating"></div>
-      <div class="rate-hint" id="serviceHint">Tap to rate</div>
+      <label class="label">&#128241; Mobile Number <span class="req">*</span></label>
+      <input type="tel" id="mobile" inputmode="numeric" maxlength="8" placeholder="8-digit mobile number" autocomplete="tel">
     </div>
 
     <div class="field">
-      <label class="label">How was the staff behaviour?</label>
-      <div class="stars" id="staffStars" role="radiogroup" aria-label="Staff behaviour rating"></div>
-      <div class="rate-hint" id="staffHint">Tap to rate</div>
+      <label class="label">&#11088; 1. Are you happy with our service today?</label>
+      <div class="stars" id="happyStars" role="radiogroup" aria-label="Happy with service rating"></div>
+      <div class="rate-hint" id="happyHint">Tap to rate</div>
     </div>
 
     <div class="field">
-      <label class="label">Remarks <span style="text-transform:none;font-weight:500;color:var(--muted)">(optional)</span></label>
-      <textarea id="remarks" maxlength="500" placeholder="Tell us more..."></textarea>
+      <label class="label">&#129309; 2. Did we treat you with respect and a smile?</label>
+      <div class="stars" id="respectStars" role="radiogroup" aria-label="Respect and smile rating"></div>
+      <div class="rate-hint" id="respectHint">Tap to rate</div>
+    </div>
+
+    <div class="field">
+      <label class="label">&#9889; 3. Were you served quickly?</label>
+      <div class="chips" id="speedChips" role="radiogroup" aria-label="Service speed"></div>
+    </div>
+
+    <div class="field">
+      <label class="label">&#10084;&#65039; 4. Would you visit us again?</label>
+      <div class="chips" id="visitChips" role="radiogroup" aria-label="Visit again"></div>
+    </div>
+
+    <div class="field">
+      <label class="label">&#128077; 5. Would you recommend us to your family and friends?</label>
+      <div class="chips" id="recommendChips" role="radiogroup" aria-label="Recommend us"></div>
+    </div>
+
+    <div class="field">
+      <label class="label">&#128172; 6. How can we improve our service? <span style="text-transform:none;font-weight:500;color:var(--muted)">(optional)</span></label>
+      <textarea id="improve" maxlength="500" placeholder="Your suggestions..."></textarea>
     </div>
 
     <button type="submit" class="submit" id="submitBtn">Submit Feedback</button>
@@ -301,8 +357,8 @@ if(paramBranch){
     });
 }
 
-/* Build star groups */
-const state = { neat: 0, service: 0, staff: 0 };
+/* Star ratings */
+const state = { happy: 0, respect: 0 };
 
 function buildStars(containerId, hintId, key){
   const box = document.getElementById(containerId);
@@ -317,14 +373,46 @@ function buildStars(containerId, hintId, key){
       state[key] = i;
       [...box.children].forEach((el, idx) => el.classList.toggle("on", idx < i));
       hint.textContent = LABELS[i];
-      hint.style.color = i >= 4 ? "var(--ok)" : (i <= 2 ? "#B3261E" : "var(--muted)");
+      hint.style.color = i >= 4 ? "var(--ok)" : (i <= 2 ? "var(--warn)" : "var(--muted)");
     });
     box.appendChild(b);
   }
 }
-buildStars("neatStars","neatHint","neat");
-buildStars("serviceStars","serviceHint","service");
-buildStars("staffStars","staffHint","staff");
+buildStars("happyStars","happyHint","happy");
+buildStars("respectStars","respectHint","respect");
+
+/* Choice chips */
+const choices = { speed: "", visit: "", recommend: "" };
+
+function buildChips(containerId, key, options){
+  const box = document.getElementById(containerId);
+  options.forEach(opt => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = opt.label;
+    b.setAttribute("role","radio");
+    b.addEventListener("click", () => {
+      choices[key] = opt.value;
+      [...box.children].forEach(el => el.classList.toggle("on", el === b));
+    });
+    box.appendChild(b);
+  });
+}
+buildChips("speedChips","speed",[
+  {label:"\u{1F7E2} Fast", value:"Fast"},
+  {label:"\u{1F7E1} Average", value:"Average"},
+  {label:"\u{1F534} Slow", value:"Slow"}
+]);
+buildChips("visitChips","visit",[
+  {label:"✅ Yes", value:"Yes"},
+  {label:"\u{1F914} Maybe", value:"Maybe"},
+  {label:"❌ No", value:"No"}
+]);
+buildChips("recommendChips","recommend",[
+  {label:"✅ Yes", value:"Yes"},
+  {label:"\u{1F914} Maybe", value:"Maybe"},
+  {label:"❌ No", value:"No"}
+]);
 
 /* Submit */
 const form = document.getElementById("fbForm");
@@ -340,8 +428,25 @@ form.addEventListener("submit", async (e) => {
     err.textContent = "Please select your branch.";
     return;
   }
-  if(!state.neat || !state.service || !state.staff){
-    err.textContent = "Please rate all questions before submitting.";
+
+  const civilId = document.getElementById("civilId").value.trim();
+  if(!/^\d{12}$/.test(civilId)){
+    err.textContent = "Please enter a valid 12-digit Civil ID number.";
+    return;
+  }
+
+  const mobile = document.getElementById("mobile").value.trim();
+  if(!/^\d{8}$/.test(mobile)){
+    err.textContent = "Please enter a valid 8-digit mobile number.";
+    return;
+  }
+
+  if(!state.happy || !state.respect){
+    err.textContent = "Please rate questions 1 and 2 before submitting.";
+    return;
+  }
+  if(!choices.speed || !choices.visit || !choices.recommend){
+    err.textContent = "Please answer questions 3, 4 and 5 before submitting.";
     return;
   }
 
@@ -352,10 +457,14 @@ form.addEventListener("submit", async (e) => {
 
   const payload = {
     branch: branch,
-    neatness: state.neat,
-    service: state.service,
-    staff: state.staff,
-    remarks: document.getElementById("remarks").value.trim()
+    civilId: civilId,
+    mobile: mobile,
+    happy: state.happy,
+    respect: state.respect,
+    speed: choices.speed,
+    visitAgain: choices.visit,
+    recommend: choices.recommend,
+    improve: document.getElementById("improve").value.trim()
   };
 
   try{

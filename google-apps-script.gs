@@ -1,9 +1,13 @@
 /**
- * BEC Customer Feedback — Google Apps Script Web App
+ * BEC Customer Feedback — Google Apps Script Web App (v2 questionnaire)
  *
- * doPost: receives feedback from bec-feedback-form.html, appends a row to Sheet1.
- * doGet:  ?action=branches returns the branch list from Sheet2 (col A, skipping
- *         the header row) as JSON, used by the form's branch dropdown.
+ * doPost: receives feedback from the form, appends a row to Sheet1.
+ * doGet:  ?action=branches returns the branch list from Sheet2 (col A,
+ *         skipping the header row) as JSON for the form's dropdown.
+ *
+ * Sheet1 headers (row 1), in this exact order:
+ *   Timestamp | Branch | Civil ID | Mobile | Happy | Respect | Speed |
+ *   Visit Again | Recommend | Improvement
  *
  * Sheet2 layout: A1 = "Branch" (header), A2..An = one branch name per row.
  *
@@ -14,6 +18,28 @@
 const SHEET_ID = "1LjV7nStTP-1iLswU-dCL4MprDxqP6HY0g_LNaOKa4hk";
 const SHEET_NAME = "Sheet1";
 const BRANCH_SHEET = "Sheet2";
+
+function doPost(e) {
+  const data = JSON.parse(e.postData.contents);
+
+  const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
+  sheet.appendRow([
+    new Date(),
+    data.branch || "Unknown Branch",
+    "'" + (data.civilId || ""),
+    "'" + (data.mobile || ""),
+    Number(data.happy) || "",
+    Number(data.respect) || "",
+    data.speed || "",
+    data.visitAgain || "",
+    data.recommend || "",
+    data.improve || ""
+  ]);
+
+  return ContentService
+    .createTextOutput(JSON.stringify({ ok: true }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
 
 function doGet(e) {
   if (e && e.parameter && e.parameter.action === "branches") {
@@ -33,24 +59,6 @@ function doGet(e) {
   }
 
   return ContentService
-    .createTextOutput("BEC Feedback endpoint is live ✓")
+    .createTextOutput("BEC Feedback endpoint is live OK")
     .setMimeType(ContentService.MimeType.TEXT);
-}
-
-function doPost(e) {
-  const data = JSON.parse(e.postData.contents);
-
-  const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
-  sheet.appendRow([
-    new Date(),
-    data.branch || "Unknown Branch",
-    Number(data.neatness) || "",
-    Number(data.service) || "",
-    Number(data.staff) || "",
-    data.remarks || ""
-  ]);
-
-  return ContentService
-    .createTextOutput(JSON.stringify({ ok: true }))
-    .setMimeType(ContentService.MimeType.JSON);
 }
