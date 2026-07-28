@@ -133,6 +133,19 @@
     background:#fff;
   }
   textarea:focus{outline:none;border-color:var(--blue);}
+  select{
+    width:100%;
+    border:1.5px solid var(--blue-tint-2);
+    border-radius:10px;
+    padding:12px 14px;
+    font:inherit;
+    font-size:16px;
+    font-weight:600;
+    color:var(--blue-deep);
+    background:var(--blue-tint);
+    appearance:auto;
+  }
+  select:focus{outline:none;border-color:var(--blue);}
   .submit{
     width:100%;
     padding:15px;
@@ -200,7 +213,10 @@
   <form id="fbForm" novalidate>
     <div class="field">
       <label class="label">Branch Name</label>
-      <div class="branch-box"><span class="pin">&#9873;</span><span id="branchName">—</span></div>
+      <div class="branch-box" id="branchBox" style="display:none"><span class="pin">&#9873;</span><span id="branchName">—</span></div>
+      <select id="branchSelect" style="display:none">
+        <option value="">Loading branches...</option>
+      </select>
     </div>
 
     <div class="field">
@@ -248,11 +264,42 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbweLqkfhg2yRfV7iGNu4
 
 const LABELS = ["", "Poor", "Fair", "Good", "Very good", "Excellent"];
 
-/* Branch from QR / URL: ?branch=Salmiya */
+/* Branch: from QR / URL (?branch=Salmiya) -> locked box.
+   No parameter (common QR) -> dropdown loaded from the sheet (Sheet2). */
 const params = new URLSearchParams(location.search);
-const branch = (params.get("branch") || "").trim() || "Unknown Branch";
-document.getElementById("branchName").textContent = branch;
-document.getElementById("successBranch").textContent = branch;
+const paramBranch = (params.get("branch") || "").trim();
+const branchBox = document.getElementById("branchBox");
+const branchSelect = document.getElementById("branchSelect");
+
+function getBranch(){
+  return paramBranch || branchSelect.value.trim();
+}
+
+if(paramBranch){
+  branchBox.style.display = "flex";
+  document.getElementById("branchName").textContent = paramBranch;
+}else{
+  branchSelect.style.display = "block";
+  fetch(SCRIPT_URL + "?action=branches")
+    .then(r => r.json())
+    .then(data => {
+      const list = (data && data.branches) || [];
+      branchSelect.innerHTML = "";
+      const ph = document.createElement("option");
+      ph.value = "";
+      ph.textContent = list.length ? "Select your branch..." : "No branches configured";
+      branchSelect.appendChild(ph);
+      list.forEach(name => {
+        const o = document.createElement("option");
+        o.value = name;
+        o.textContent = name;
+        branchSelect.appendChild(o);
+      });
+    })
+    .catch(() => {
+      branchSelect.innerHTML = "<option value=''>Could not load branches - reload page</option>";
+    });
+}
 
 /* Build star groups */
 const state = { neat: 0, service: 0, staff: 0 };
@@ -288,10 +335,17 @@ form.addEventListener("submit", async (e) => {
   e.preventDefault();
   err.textContent = "";
 
+  const branch = getBranch();
+  if(!branch){
+    err.textContent = "Please select your branch.";
+    return;
+  }
   if(!state.neat || !state.service || !state.staff){
     err.textContent = "Please rate all questions before submitting.";
     return;
   }
+
+  document.getElementById("successBranch").textContent = branch;
 
   btn.disabled = true;
   btn.textContent = "Submitting...";
