@@ -21,7 +21,7 @@
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   body{
-    font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
+    font-family:'Segoe UI',Tahoma,system-ui,-apple-system,Roboto,Arial,sans-serif;
     background:var(--bg);
     color:var(--ink);
     min-height:100vh;
@@ -37,9 +37,35 @@
   .band{
     width:100%;
     background:var(--card);
-    padding:26px 20px 60px;
+    padding:16px 20px 60px;
     text-align:center;
     border-bottom:1px solid var(--line);
+  }
+  .lang-switch{
+    display:flex;
+    justify-content:flex-end;
+    margin-bottom:10px;
+  }
+  .lang-switch .pill{
+    display:flex;
+    border:1.5px solid var(--blue-tint-2);
+    border-radius:999px;
+    overflow:hidden;
+    background:var(--blue-tint);
+  }
+  .lang-switch button{
+    border:none;
+    background:transparent;
+    padding:8px 16px;
+    font:inherit;
+    font-size:13.5px;
+    font-weight:700;
+    color:var(--blue);
+    cursor:pointer;
+  }
+  .lang-switch button.on{
+    background:var(--blue);
+    color:#fff;
   }
   .band img.logo{
     height:58px;
@@ -57,7 +83,7 @@
     margin-top:6px;
     font-size:14px;
     color:var(--muted);
-    line-height:1.5;
+    line-height:1.6;
   }
   .card{
     width:min(440px,calc(100% - 32px));
@@ -74,12 +100,13 @@
     font-size:13px;
     font-weight:700;
     letter-spacing:.3px;
-    text-transform:uppercase;
     color:var(--blue);
     margin-bottom:8px;
-    line-height:1.45;
+    line-height:1.5;
   }
+  html[lang=en] .label{text-transform:uppercase;letter-spacing:.4px;}
   .label .req{color:var(--warn);}
+  .label .opt{font-weight:500;color:var(--muted);text-transform:none;}
   .branch-box{
     display:flex;
     align-items:center;
@@ -120,6 +147,7 @@
   .stars{
     display:flex;
     gap:8px;
+    direction:ltr;
   }
   .stars button{
     flex:1;
@@ -223,7 +251,7 @@
     box-shadow:0 6px 18px rgba(11,78,162,.35);
   }
   .success h2{font-size:21px;margin-bottom:8px;color:var(--blue-deep);}
-  .success p{font-size:14.5px;color:var(--muted);line-height:1.55;}
+  .success p{font-size:14.5px;color:var(--muted);line-height:1.6;}
   footer{
     font-size:12px;
     color:var(--muted);
@@ -240,16 +268,22 @@
 <div class="topbar"></div>
 
 <div class="band">
+  <div class="lang-switch">
+    <div class="pill">
+      <button type="button" id="langEn" class="on">English</button>
+      <button type="button" id="langAr">العربية</button>
+    </div>
+  </div>
   <img class="logo" src="bec-logo.png" alt="BEC — Bahrain Exchange Company">
-  <h1>Thank you for using BEC</h1>
-  <p>We appreciate your trust in Bahrain Exchange Company.<br>Please take a moment to tell us about your visit.</p>
+  <h1 data-i18n="title">Thank you for using BEC</h1>
+  <p data-i18n="subtitle">We appreciate your trust in Bahrain Exchange Company.<br>Please take a moment to tell us about your visit.</p>
 </div>
 
 <div class="card">
 
   <form id="fbForm" novalidate>
     <div class="field">
-      <label class="label">Branch Name</label>
+      <label class="label" data-i18n="branchLabel">Branch Name</label>
       <div class="branch-box" id="branchBox" style="display:none"><span class="pin">&#9873;</span><span id="branchName">—</span></div>
       <select id="branchSelect" style="display:none">
         <option value="">Loading branches...</option>
@@ -257,60 +291,60 @@
     </div>
 
     <div class="field">
-      <label class="label">&#128100; Civil ID Number <span class="req">*</span></label>
-      <input type="tel" id="civilId" inputmode="numeric" maxlength="12" placeholder="12-digit Civil ID" autocomplete="off">
+      <label class="label"><span data-i18n="civilLabel">&#128100; Civil ID Number</span> <span class="req">*</span></label>
+      <input type="tel" id="civilId" inputmode="numeric" maxlength="12" data-i18n-ph="civilPh" placeholder="12-digit Civil ID" autocomplete="off">
     </div>
 
     <div class="field">
-      <label class="label">&#128241; Mobile Number <span class="req">*</span></label>
-      <input type="tel" id="mobile" inputmode="numeric" maxlength="8" placeholder="8-digit mobile number" autocomplete="tel">
+      <label class="label"><span data-i18n="mobileLabel">&#128241; Mobile Number</span> <span class="req">*</span></label>
+      <input type="tel" id="mobile" inputmode="numeric" maxlength="8" data-i18n-ph="mobilePh" placeholder="8-digit mobile number" autocomplete="tel">
     </div>
 
     <div class="field">
-      <label class="label">&#11088; 1. Are you happy with our service today?</label>
+      <label class="label" data-i18n="q1">&#11088; 1. Are you happy with our service today?</label>
       <div class="stars" id="happyStars" role="radiogroup" aria-label="Happy with service rating"></div>
       <div class="rate-hint" id="happyHint">Tap to rate</div>
     </div>
 
     <div class="field">
-      <label class="label">&#129309; 2. Did we treat you with respect and a smile?</label>
+      <label class="label" data-i18n="q2">&#129309; 2. Did we treat you with respect and a smile?</label>
       <div class="stars" id="respectStars" role="radiogroup" aria-label="Respect and smile rating"></div>
       <div class="rate-hint" id="respectHint">Tap to rate</div>
     </div>
 
     <div class="field">
-      <label class="label">&#9889; 3. Were you served quickly?</label>
+      <label class="label" data-i18n="q3">&#9889; 3. Were you served quickly?</label>
       <div class="chips" id="speedChips" role="radiogroup" aria-label="Service speed"></div>
     </div>
 
     <div class="field">
-      <label class="label">&#10084;&#65039; 4. Would you visit us again?</label>
+      <label class="label" data-i18n="q4">&#10084;&#65039; 4. Would you visit us again?</label>
       <div class="chips" id="visitChips" role="radiogroup" aria-label="Visit again"></div>
     </div>
 
     <div class="field">
-      <label class="label">&#128077; 5. Would you recommend us to your family and friends?</label>
+      <label class="label" data-i18n="q5">&#128077; 5. Would you recommend us to your family and friends?</label>
       <div class="chips" id="recommendChips" role="radiogroup" aria-label="Recommend us"></div>
     </div>
 
     <div class="field">
-      <label class="label">&#128172; 6. How can we improve our service? <span style="text-transform:none;font-weight:500;color:var(--muted)">(optional)</span></label>
-      <textarea id="improve" maxlength="500" placeholder="Your suggestions..."></textarea>
+      <label class="label"><span data-i18n="q6">&#128172; 6. How can we improve our service?</span> <span class="opt" data-i18n="optional">(optional)</span></label>
+      <textarea id="improve" maxlength="500" data-i18n-ph="improvePh" placeholder="Your suggestions..."></textarea>
     </div>
 
-    <button type="submit" class="submit" id="submitBtn">Submit Feedback</button>
+    <button type="submit" class="submit" id="submitBtn" data-i18n="submit">Submit Feedback</button>
     <div class="error" id="errMsg"></div>
   </form>
 
   <div class="success" id="successBox">
     <div class="tick">&#10003;</div>
-    <h2>Thank you!</h2>
-    <p>Your feedback for <strong id="successBranch"></strong> has been recorded.<br>We appreciate you taking the time.</p>
+    <h2 data-i18n="thanks">Thank you!</h2>
+    <p id="successMsg"></p>
   </div>
 
 </div>
 
-<footer>&copy; Bahrain Exchange Company &middot; Kuwait</footer>
+<footer data-i18n="footer">&copy; Bahrain Exchange Company &middot; Kuwait</footer>
 
 <script>
 /* ================= CONFIG ================= */
@@ -318,17 +352,113 @@
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxZDJGCX8Wu92c8d2PFTNMcC9tjs_aLomn2OjrD56zkQgPfkB1-mLzk4MEDQ6r6wQCP/exec";
 /* ========================================== */
 
-const LABELS = ["", "Poor", "Fair", "Good", "Very good", "Excellent"];
+/* ---------- Translations ---------- */
+const I18N = {
+  en: {
+    title: "Thank you for using BEC",
+    subtitle: "We appreciate your trust in Bahrain Exchange Company.\nPlease take a moment to tell us about your visit.",
+    branchLabel: "Branch Name",
+    branchLoading: "Loading branches...",
+    branchSelect: "Select your branch...",
+    branchNone: "No branches configured",
+    branchError: "Could not load branches - reload page",
+    civilLabel: "\u{1F464} Civil ID Number",
+    civilPh: "12-digit Civil ID",
+    mobileLabel: "\u{1F4F1} Mobile Number",
+    mobilePh: "8-digit mobile number",
+    q1: "⭐ 1. Are you happy with our service today?",
+    q2: "\u{1F91D} 2. Did we treat you with respect and a smile?",
+    q3: "⚡ 3. Were you served quickly?",
+    q4: "❤️ 4. Would you visit us again?",
+    q5: "\u{1F44D} 5. Would you recommend us to your family and friends?",
+    q6: "\u{1F4AC} 6. How can we improve our service?",
+    optional: "(optional)",
+    improvePh: "Your suggestions...",
+    tapToRate: "Tap to rate",
+    starLabels: ["", "Poor", "Fair", "Good", "Very good", "Excellent"],
+    fast: "\u{1F7E2} Fast", average: "\u{1F7E1} Average", slow: "\u{1F534} Slow",
+    yes: "✅ Yes", maybe: "\u{1F914} Maybe", no: "❌ No",
+    submit: "Submit Feedback",
+    submitting: "Submitting...",
+    errBranch: "Please select your branch.",
+    errCivil: "Please enter a valid 12-digit Civil ID number.",
+    errMobile: "Please enter a valid 8-digit mobile number.",
+    errStars: "Please rate questions 1 and 2 before submitting.",
+    errChips: "Please answer questions 3, 4 and 5 before submitting.",
+    errSubmit: "Could not submit. Please check your connection and try again.",
+    thanks: "Thank you!",
+    successMsg: "Your feedback for {branch} has been recorded.\nWe appreciate you taking the time.",
+    footer: "© Bahrain Exchange Company · Kuwait"
+  },
+  ar: {
+    title: "شكراً لاستخدامكم BEC",
+    subtitle: "نقدّر ثقتكم بشركة البحرين للصرافة.\nنرجو منحنا لحظات لإخبارنا عن زيارتكم.",
+    branchLabel: "اسم الفرع",
+    branchLoading: "جاري تحميل الفروع...",
+    branchSelect: "اختر الفرع...",
+    branchNone: "لا توجد فروع",
+    branchError: "تعذر تحميل الفروع - أعد تحميل الصفحة",
+    civilLabel: "\u{1F464} الرقم المدني",
+    civilPh: "الرقم المدني (12 رقماً)",
+    mobileLabel: "\u{1F4F1} رقم الهاتف",
+    mobilePh: "رقم الهاتف (8 أرقام)",
+    q1: "⭐ 1. هل أنت راضٍ عن خدمتنا اليوم؟",
+    q2: "\u{1F91D} 2. هل تعاملنا معك باحترام وابتسامة؟",
+    q3: "⚡ 3. هل تمت خدمتك بسرعة؟",
+    q4: "❤️ 4. هل ستزورنا مرة أخرى؟",
+    q5: "\u{1F44D} 5. هل تنصح عائلتك وأصدقاءك بالتعامل معنا؟",
+    q6: "\u{1F4AC} 6. كيف يمكننا تحسين خدمتنا؟",
+    optional: "(اختياري)",
+    improvePh: "اقتراحاتكم...",
+    tapToRate: "اضغط للتقييم",
+    starLabels: ["", "ضعيف", "مقبول", "جيد", "جيد جداً", "ممتاز"],
+    fast: "\u{1F7E2} سريع", average: "\u{1F7E1} متوسط", slow: "\u{1F534} بطيء",
+    yes: "✅ نعم", maybe: "\u{1F914} ربما", no: "❌ لا",
+    submit: "إرسال التقييم",
+    submitting: "جاري الإرسال...",
+    errBranch: "يرجى اختيار الفرع.",
+    errCivil: "يرجى إدخال رقم مدني صحيح مكون من 12 رقماً.",
+    errMobile: "يرجى إدخال رقم هاتف صحيح مكون من 8 أرقام.",
+    errStars: "يرجى تقييم السؤالين 1 و2 قبل الإرسال.",
+    errChips: "يرجى الإجابة على الأسئلة 3 و4 و5 قبل الإرسال.",
+    errSubmit: "تعذر الإرسال. يرجى التحقق من الاتصال والمحاولة مرة أخرى.",
+    thanks: "شكراً لك!",
+    successMsg: "تم تسجيل تقييمكم لفرع {branch}.\nنشكركم على وقتكم.",
+    footer: "شركة البحرين للصرافة · الكويت"
+  }
+};
 
-/* Branch: from QR / URL (?branch=Salmiya) -> locked box.
-   No parameter (common QR) -> dropdown loaded from the sheet (Sheet2). */
 const params = new URLSearchParams(location.search);
+let lang = (params.get("lang") === "ar") ? "ar" : "en";
+function t(key){ return I18N[lang][key]; }
+
+/* ---------- Branch ---------- */
 const paramBranch = (params.get("branch") || "").trim();
 const branchBox = document.getElementById("branchBox");
 const branchSelect = document.getElementById("branchSelect");
+let branchLoadState = "loading"; // loading | ready | empty | error
+let branchList = [];
 
 function getBranch(){
   return paramBranch || branchSelect.value.trim();
+}
+
+function renderBranchSelect(){
+  const current = branchSelect.value;
+  branchSelect.innerHTML = "";
+  const ph = document.createElement("option");
+  ph.value = "";
+  ph.textContent = branchLoadState === "loading" ? t("branchLoading")
+    : branchLoadState === "error" ? t("branchError")
+    : branchList.length ? t("branchSelect") : t("branchNone");
+  branchSelect.appendChild(ph);
+  branchList.forEach(name => {
+    const o = document.createElement("option");
+    o.value = name;
+    o.textContent = name;
+    branchSelect.appendChild(o);
+  });
+  if(current) branchSelect.value = current;
 }
 
 if(paramBranch){
@@ -336,33 +466,41 @@ if(paramBranch){
   document.getElementById("branchName").textContent = paramBranch;
 }else{
   branchSelect.style.display = "block";
+  renderBranchSelect();
   fetch(SCRIPT_URL + "?action=branches")
     .then(r => r.json())
     .then(data => {
-      const list = (data && data.branches) || [];
-      branchSelect.innerHTML = "";
-      const ph = document.createElement("option");
-      ph.value = "";
-      ph.textContent = list.length ? "Select your branch..." : "No branches configured";
-      branchSelect.appendChild(ph);
-      list.forEach(name => {
-        const o = document.createElement("option");
-        o.value = name;
-        o.textContent = name;
-        branchSelect.appendChild(o);
-      });
+      branchList = (data && data.branches) || [];
+      branchLoadState = branchList.length ? "ready" : "empty";
+      renderBranchSelect();
     })
     .catch(() => {
-      branchSelect.innerHTML = "<option value=''>Could not load branches - reload page</option>";
+      branchLoadState = "error";
+      renderBranchSelect();
     });
 }
 
-/* Star ratings */
+/* ---------- Star ratings ---------- */
 const state = { happy: 0, respect: 0 };
+const starMeta = {
+  happy: {box: "happyStars", hint: "happyHint"},
+  respect: {box: "respectStars", hint: "respectHint"}
+};
 
-function buildStars(containerId, hintId, key){
-  const box = document.getElementById(containerId);
-  const hint = document.getElementById(hintId);
+function updateHint(key){
+  const hint = document.getElementById(starMeta[key].hint);
+  const v = state[key];
+  if(!v){
+    hint.textContent = t("tapToRate");
+    hint.style.color = "var(--muted)";
+  }else{
+    hint.textContent = t("starLabels")[v];
+    hint.style.color = v >= 4 ? "var(--ok)" : (v <= 2 ? "var(--warn)" : "var(--muted)");
+  }
+}
+
+function buildStars(key){
+  const box = document.getElementById(starMeta[key].box);
   for(let i = 1; i <= 5; i++){
     const b = document.createElement("button");
     b.type = "button";
@@ -372,24 +510,30 @@ function buildStars(containerId, hintId, key){
     b.addEventListener("click", () => {
       state[key] = i;
       [...box.children].forEach((el, idx) => el.classList.toggle("on", idx < i));
-      hint.textContent = LABELS[i];
-      hint.style.color = i >= 4 ? "var(--ok)" : (i <= 2 ? "var(--warn)" : "var(--muted)");
+      updateHint(key);
     });
     box.appendChild(b);
   }
 }
-buildStars("happyStars","happyHint","happy");
-buildStars("respectStars","respectHint","respect");
+buildStars("happy");
+buildStars("respect");
 
-/* Choice chips */
+/* ---------- Choice chips (points: best 5, middle 3, worst 1) ---------- */
 const choices = { speed: 0, visit: 0, recommend: 0 };
+const chipMeta = {
+  speed: {box: "speedChips", options: [ {key:"fast", value:5}, {key:"average", value:3}, {key:"slow", value:1} ]},
+  visit: {box: "visitChips", options: [ {key:"yes", value:5}, {key:"maybe", value:3}, {key:"no", value:1} ]},
+  recommend: {box: "recommendChips", options: [ {key:"yes", value:5}, {key:"maybe", value:3}, {key:"no", value:1} ]}
+};
 
-function buildChips(containerId, key, options){
-  const box = document.getElementById(containerId);
-  options.forEach(opt => {
+function buildChips(key){
+  const meta = chipMeta[key];
+  const box = document.getElementById(meta.box);
+  meta.options.forEach(opt => {
     const b = document.createElement("button");
     b.type = "button";
-    b.textContent = opt.label;
+    b.textContent = t(opt.key);
+    b.dataset.k = opt.key;
     b.setAttribute("role","radio");
     b.addEventListener("click", () => {
       choices[key] = opt.value;
@@ -398,24 +542,53 @@ function buildChips(containerId, key, options){
     box.appendChild(b);
   });
 }
-/* Points: best = 5, middle = 3, worst = 1 */
-buildChips("speedChips","speed",[
-  {label:"\u{1F7E2} Fast", value:5},
-  {label:"\u{1F7E1} Average", value:3},
-  {label:"\u{1F534} Slow", value:1}
-]);
-buildChips("visitChips","visit",[
-  {label:"✅ Yes", value:5},
-  {label:"\u{1F914} Maybe", value:3},
-  {label:"❌ No", value:1}
-]);
-buildChips("recommendChips","recommend",[
-  {label:"✅ Yes", value:5},
-  {label:"\u{1F914} Maybe", value:3},
-  {label:"❌ No", value:1}
-]);
+Object.keys(chipMeta).forEach(buildChips);
 
-/* Submit */
+function relabelChips(){
+  Object.keys(chipMeta).forEach(key => {
+    const box = document.getElementById(chipMeta[key].box);
+    [...box.children].forEach(el => { el.textContent = t(el.dataset.k); });
+  });
+}
+
+/* ---------- Language switching ---------- */
+const langEn = document.getElementById("langEn");
+const langAr = document.getElementById("langAr");
+
+function applyLang(){
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  langEn.classList.toggle("on", lang === "en");
+  langAr.classList.toggle("on", lang === "ar");
+
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const txt = t(el.dataset.i18n);
+    if(txt.includes("\n")){
+      el.innerHTML = "";
+      txt.split("\n").forEach((part, i) => {
+        if(i) el.appendChild(document.createElement("br"));
+        el.appendChild(document.createTextNode(part));
+      });
+    }else{
+      el.textContent = txt;
+    }
+  });
+  document.querySelectorAll("[data-i18n-ph]").forEach(el => {
+    el.placeholder = t(el.dataset.i18nPh);
+  });
+
+  renderBranchSelect();
+  relabelChips();
+  updateHint("happy");
+  updateHint("respect");
+  if(!btn.disabled) btn.textContent = t("submit");
+  err.textContent = "";
+}
+
+langEn.addEventListener("click", () => { lang = "en"; applyLang(); });
+langAr.addEventListener("click", () => { lang = "ar"; applyLang(); });
+
+/* ---------- Submit ---------- */
 const form = document.getElementById("fbForm");
 const btn = document.getElementById("submitBtn");
 const err = document.getElementById("errMsg");
@@ -426,35 +599,40 @@ form.addEventListener("submit", async (e) => {
 
   const branch = getBranch();
   if(!branch){
-    err.textContent = "Please select your branch.";
+    err.textContent = t("errBranch");
     return;
   }
 
   const civilId = document.getElementById("civilId").value.trim();
   if(!/^\d{12}$/.test(civilId)){
-    err.textContent = "Please enter a valid 12-digit Civil ID number.";
+    err.textContent = t("errCivil");
     return;
   }
 
   const mobile = document.getElementById("mobile").value.trim();
   if(!/^\d{8}$/.test(mobile)){
-    err.textContent = "Please enter a valid 8-digit mobile number.";
+    err.textContent = t("errMobile");
     return;
   }
 
   if(!state.happy || !state.respect){
-    err.textContent = "Please rate questions 1 and 2 before submitting.";
+    err.textContent = t("errStars");
     return;
   }
   if(!choices.speed || !choices.visit || !choices.recommend){
-    err.textContent = "Please answer questions 3, 4 and 5 before submitting.";
+    err.textContent = t("errChips");
     return;
   }
 
-  document.getElementById("successBranch").textContent = branch;
+  const msg = document.getElementById("successMsg");
+  msg.innerHTML = "";
+  t("successMsg").replace("{branch}", branch).split("\n").forEach((part, i) => {
+    if(i) msg.appendChild(document.createElement("br"));
+    msg.appendChild(document.createTextNode(part));
+  });
 
   btn.disabled = true;
-  btn.textContent = "Submitting...";
+  btn.textContent = t("submitting");
 
   const payload = {
     branch: branch,
@@ -478,11 +656,13 @@ form.addEventListener("submit", async (e) => {
     form.style.display = "none";
     document.getElementById("successBox").style.display = "block";
   }catch(ex){
-    err.textContent = "Could not submit. Please check your connection and try again.";
+    err.textContent = t("errSubmit");
     btn.disabled = false;
-    btn.textContent = "Submit Feedback";
+    btn.textContent = t("submit");
   }
 });
+
+applyLang();
 </script>
 </body>
 </html>
