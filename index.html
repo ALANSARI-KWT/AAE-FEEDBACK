@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BEC Customer Feedback</title>
+<style>
+  :root{
+    --blue:#0B4EA2;
+    --blue-dark:#083D80;
+    --blue-deep:#062F63;
+    --blue-tint:#E9F1FA;
+    --blue-tint-2:#D7E6F7;
+    --ink:#122A4B;
+    --muted:#5A6B85;
+    --line:#DCE6F2;
+    --bg:#F2F6FB;
+    --card:#FFFFFF;
+    --ok:#1B8A4C;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .topbar{
+    width:100%;
+    height:6px;
+    background:linear-gradient(90deg,var(--blue) 0%,var(--blue-dark) 100%);
+  }
+  .band{
+    width:100%;
+    background:var(--card);
+    padding:26px 20px 60px;
+    text-align:center;
+    border-bottom:1px solid var(--line);
+  }
+  .band img.logo{
+    height:58px;
+    max-width:70%;
+    object-fit:contain;
+  }
+  .band h1{
+    margin-top:16px;
+    font-size:21px;
+    font-weight:800;
+    color:var(--blue);
+    letter-spacing:.2px;
+  }
+  .band p{
+    margin-top:6px;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.5;
+  }
+  .card{
+    width:min(440px,calc(100% - 32px));
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    box-shadow:0 10px 30px rgba(11,78,162,.12);
+    margin:-34px 0 40px;
+    padding:26px 22px 28px;
+  }
+  .field{margin-bottom:22px;}
+  .label{
+    display:block;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.4px;
+    text-transform:uppercase;
+    color:var(--blue);
+    margin-bottom:8px;
+  }
+  .branch-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:var(--blue-tint);
+    border:1.5px solid var(--blue-tint-2);
+    border-radius:10px;
+    padding:12px 14px;
+    font-size:16px;
+    font-weight:600;
+    color:var(--blue-deep);
+  }
+  .branch-box .pin{color:var(--blue);font-size:18px;}
+  .stars{
+    display:flex;
+    gap:8px;
+  }
+  .stars button{
+    flex:1;
+    aspect-ratio:1.15/1;
+    max-height:58px;
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    background:#fff;
+    font-size:26px;
+    color:#C6D3E4;
+    cursor:pointer;
+    transition:transform .08s ease,color .12s ease,border-color .12s ease,background .12s ease;
+  }
+  .stars button:active{transform:scale(.92);}
+  .stars button.on{
+    color:var(--blue);
+    border-color:var(--blue);
+    background:var(--blue-tint);
+  }
+  .stars button:focus-visible{outline:2px solid var(--blue);outline-offset:2px;}
+  .rate-hint{
+    margin-top:7px;
+    font-size:13px;
+    font-weight:600;
+    color:var(--muted);
+    min-height:18px;
+  }
+  textarea{
+    width:100%;
+    min-height:96px;
+    resize:vertical;
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    padding:12px 14px;
+    font:inherit;
+    font-size:15px;
+    color:var(--ink);
+    background:#fff;
+  }
+  textarea:focus{outline:none;border-color:var(--blue);}
+  select{
+    width:100%;
+    border:1.5px solid var(--blue-tint-2);
+    border-radius:10px;
+    padding:12px 14px;
+    font:inherit;
+    font-size:16px;
+    font-weight:600;
+    color:var(--blue-deep);
+    background:var(--blue-tint);
+    appearance:auto;
+  }
+  select:focus{outline:none;border-color:var(--blue);}
+  .submit{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(135deg,var(--blue) 0%,var(--blue-dark) 100%);
+    color:#fff;
+    font-size:16px;
+    font-weight:700;
+    letter-spacing:.3px;
+    cursor:pointer;
+    transition:filter .15s ease,transform .08s ease;
+  }
+  .submit:active{transform:scale(.985);}
+  .submit:hover{filter:brightness(1.08);}
+  .submit:disabled{background:#B9C6D9;cursor:not-allowed;}
+  .error{
+    margin-top:12px;
+    font-size:13.5px;
+    color:#B3261E;
+    text-align:center;
+    min-height:18px;
+  }
+  /* success state */
+  .success{
+    display:none;
+    text-align:center;
+    padding:30px 8px 12px;
+  }
+  .success .tick{
+    width:72px;height:72px;
+    margin:0 auto 18px;
+    border-radius:50%;
+    background:var(--blue);
+    color:#fff;
+    font-size:38px;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 18px rgba(11,78,162,.35);
+  }
+  .success h2{font-size:21px;margin-bottom:8px;color:var(--blue-deep);}
+  .success p{font-size:14.5px;color:var(--muted);line-height:1.55;}
+  footer{
+    font-size:12px;
+    color:var(--muted);
+    padding-bottom:26px;
+    text-align:center;
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar"></div>
+
+<div class="band">
+  <img class="logo" src="bec-logo.png" alt="BEC — Bahrain Exchange Company">
+  <h1>Thank you for using BEC</h1>
+  <p>We appreciate your trust in Bahrain Exchange Company.<br>Please take a moment to tell us about your visit.</p>
+</div>
+
+<div class="card">
+
+  <form id="fbForm" novalidate>
+    <div class="field">
+      <label class="label">Branch Name</label>
+      <div class="branch-box" id="branchBox" style="display:none"><span class="pin">&#9873;</span><span id="branchName">—</span></div>
+      <select id="branchSelect" style="display:none">
+        <option value="">Loading branches...</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label class="label">How neat is the branch?</label>
+      <div class="stars" id="neatStars" role="radiogroup" aria-label="Branch neatness rating"></div>
+      <div class="rate-hint" id="neatHint">Tap to rate</div>
+    </div>
+
+    <div class="field">
+      <label class="label">How is the service?</label>
+      <div class="stars" id="serviceStars" role="radiogroup" aria-label="Service rating"></div>
+      <div class="rate-hint" id="serviceHint">Tap to rate</div>
+    </div>
+
+    <div class="field">
+      <label class="label">How was the staff behaviour?</label>
+      <div class="stars" id="staffStars" role="radiogroup" aria-label="Staff behaviour rating"></div>
+      <div class="rate-hint" id="staffHint">Tap to rate</div>
+    </div>
+
+    <div class="field">
+      <label class="label">Remarks <span style="text-transform:none;font-weight:500;color:var(--muted)">(optional)</span></label>
+      <textarea id="remarks" maxlength="500" placeholder="Tell us more..."></textarea>
+    </div>
+
+    <button type="submit" class="submit" id="submitBtn">Submit Feedback</button>
+    <div class="error" id="errMsg"></div>
+  </form>
+
+  <div class="success" id="successBox">
+    <div class="tick">&#10003;</div>
+    <h2>Thank you!</h2>
+    <p>Your feedback for <strong id="successBranch"></strong> has been recorded.<br>We appreciate you taking the time.</p>
+  </div>
+
+</div>
+
+<footer>&copy; Bahrain Exchange Company &middot; Kuwait</footer>
+
+<script>
+/* ================= CONFIG ================= */
+/* Paste your Apps Script Web App URL here: */
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwku030fiMi9ewx0OKrsMQ8FKNF6XlhL3ftFs6z0Uh0m551DdSj1xhOpWsJhgrmz9qi/exec";
+/* ========================================== */
+
+const LABELS = ["", "Poor", "Fair", "Good", "Very good", "Excellent"];
+
+/* Branch: from QR / URL (?branch=Salmiya) -> locked box.
+   No parameter (common QR) -> dropdown loaded from the sheet (Sheet2). */
+const params = new URLSearchParams(location.search);
+const paramBranch = (params.get("branch") || "").trim();
+const branchBox = document.getElementById("branchBox");
+const branchSelect = document.getElementById("branchSelect");
+
+function getBranch(){
+  return paramBranch || branchSelect.value.trim();
+}
+
+if(paramBranch){
+  branchBox.style.display = "flex";
+  document.getElementById("branchName").textContent = paramBranch;
+}else{
+  branchSelect.style.display = "block";
+  fetch(SCRIPT_URL + "?action=branches")
+    .then(r => r.json())
+    .then(data => {
+      const list = (data && data.branches) || [];
+      branchSelect.innerHTML = "";
+      const ph = document.createElement("option");
+      ph.value = "";
+      ph.textContent = list.length ? "Select your branch..." : "No branches configured";
+      branchSelect.appendChild(ph);
+      list.forEach(name => {
+        const o = document.createElement("option");
+        o.value = name;
+        o.textContent = name;
+        branchSelect.appendChild(o);
+      });
+    })
+    .catch(() => {
+      branchSelect.innerHTML = "<option value=''>Could not load branches - reload page</option>";
+    });
+}
+
+/* Build star groups */
+const state = { neat: 0, service: 0, staff: 0 };
+
+function buildStars(containerId, hintId, key){
+  const box = document.getElementById(containerId);
+  const hint = document.getElementById(hintId);
+  for(let i = 1; i <= 5; i++){
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = "★";
+    b.setAttribute("role","radio");
+    b.setAttribute("aria-label", i + " star" + (i>1?"s":""));
+    b.addEventListener("click", () => {
+      state[key] = i;
+      [...box.children].forEach((el, idx) => el.classList.toggle("on", idx < i));
+      hint.textContent = LABELS[i];
+      hint.style.color = i >= 4 ? "var(--ok)" : (i <= 2 ? "#B3261E" : "var(--muted)");
+    });
+    box.appendChild(b);
+  }
+}
+buildStars("neatStars","neatHint","neat");
+buildStars("serviceStars","serviceHint","service");
+buildStars("staffStars","staffHint","staff");
+
+/* Submit */
+const form = document.getElementById("fbForm");
+const btn = document.getElementById("submitBtn");
+const err = document.getElementById("errMsg");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  err.textContent = "";
+
+  const branch = getBranch();
+  if(!branch){
+    err.textContent = "Please select your branch.";
+    return;
+  }
+  if(!state.neat || !state.service || !state.staff){
+    err.textContent = "Please rate all questions before submitting.";
+    return;
+  }
+
+  document.getElementById("successBranch").textContent = branch;
+
+  btn.disabled = true;
+  btn.textContent = "Submitting...";
+
+  const payload = {
+    branch: branch,
+    neatness: state.neat,
+    service: state.service,
+    staff: state.staff,
+    remarks: document.getElementById("remarks").value.trim()
+  };
+
+  try{
+    await fetch(SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    });
+    form.style.display = "none";
+    document.getElementById("successBox").style.display = "block";
+  }catch(ex){
+    err.textContent = "Could not submit. Please check your connection and try again.";
+    btn.disabled = false;
+    btn.textContent = "Submit Feedback";
+  }
+});
+</script>
+</body>
+</html>
