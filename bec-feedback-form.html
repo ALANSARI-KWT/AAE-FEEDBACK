@@ -6,14 +6,16 @@
 <title>BEC Customer Feedback</title>
 <style>
   :root{
-    --red:#C8102E;
-    --red-dark:#9A0C23;
-    --ink:#1C1B1F;
-    --muted:#6E6A73;
-    --line:#E8E4E9;
-    --bg:#F6F4F7;
+    --blue:#0B4EA2;
+    --blue-dark:#083D80;
+    --blue-deep:#062F63;
+    --blue-tint:#E9F1FA;
+    --blue-tint-2:#D7E6F7;
+    --ink:#122A4B;
+    --muted:#5A6B85;
+    --line:#DCE6F2;
+    --bg:#F2F6FB;
     --card:#FFFFFF;
-    --gold:#F5B400;
     --ok:#1B8A4C;
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
@@ -26,30 +28,43 @@
     flex-direction:column;
     align-items:center;
   }
+  .topbar{
+    width:100%;
+    height:6px;
+    background:linear-gradient(90deg,var(--blue) 0%,var(--blue-dark) 100%);
+  }
   .band{
     width:100%;
-    background:linear-gradient(135deg,var(--red) 0%,var(--red-dark) 100%);
-    color:#fff;
-    padding:28px 20px 56px;
+    background:var(--card);
+    padding:26px 20px 60px;
     text-align:center;
+    border-bottom:1px solid var(--line);
   }
-  .band .logo{
-    font-size:30px;
+  .band img.logo{
+    height:58px;
+    max-width:70%;
+    object-fit:contain;
+  }
+  .band h1{
+    margin-top:16px;
+    font-size:21px;
     font-weight:800;
-    letter-spacing:2px;
+    color:var(--blue);
+    letter-spacing:.2px;
   }
-  .band .logo span{font-weight:300;}
   .band p{
     margin-top:6px;
-    font-size:13.5px;
-    opacity:.9;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.5;
   }
   .card{
     width:min(440px,calc(100% - 32px));
     background:var(--card);
+    border:1px solid var(--line);
     border-radius:16px;
-    box-shadow:0 8px 28px rgba(28,27,31,.10);
-    margin:-36px 0 40px;
+    box-shadow:0 10px 30px rgba(11,78,162,.12);
+    margin:-34px 0 40px;
     padding:26px 22px 28px;
   }
   .field{margin-bottom:22px;}
@@ -59,21 +74,22 @@
     font-weight:700;
     letter-spacing:.4px;
     text-transform:uppercase;
-    color:var(--muted);
+    color:var(--blue);
     margin-bottom:8px;
   }
   .branch-box{
     display:flex;
     align-items:center;
     gap:10px;
-    background:var(--bg);
-    border:1.5px solid var(--line);
+    background:var(--blue-tint);
+    border:1.5px solid var(--blue-tint-2);
     border-radius:10px;
     padding:12px 14px;
     font-size:16px;
     font-weight:600;
+    color:var(--blue-deep);
   }
-  .branch-box .pin{color:var(--red);font-size:18px;}
+  .branch-box .pin{color:var(--blue);font-size:18px;}
   .stars{
     display:flex;
     gap:8px;
@@ -86,17 +102,17 @@
     border-radius:10px;
     background:#fff;
     font-size:26px;
-    color:#D8D4DC;
+    color:#C6D3E4;
     cursor:pointer;
     transition:transform .08s ease,color .12s ease,border-color .12s ease,background .12s ease;
   }
   .stars button:active{transform:scale(.92);}
   .stars button.on{
-    color:var(--gold);
-    border-color:var(--gold);
-    background:#FFF9E8;
+    color:var(--blue);
+    border-color:var(--blue);
+    background:var(--blue-tint);
   }
-  .stars button:focus-visible{outline:2px solid var(--red);outline-offset:2px;}
+  .stars button:focus-visible{outline:2px solid var(--blue);outline-offset:2px;}
   .rate-hint{
     margin-top:7px;
     font-size:13px;
@@ -114,28 +130,29 @@
     font:inherit;
     font-size:15px;
     color:var(--ink);
+    background:#fff;
   }
-  textarea:focus{outline:none;border-color:var(--red);}
+  textarea:focus{outline:none;border-color:var(--blue);}
   .submit{
     width:100%;
     padding:15px;
     border:none;
     border-radius:10px;
-    background:var(--red);
+    background:linear-gradient(135deg,var(--blue) 0%,var(--blue-dark) 100%);
     color:#fff;
     font-size:16px;
     font-weight:700;
     letter-spacing:.3px;
     cursor:pointer;
-    transition:background .15s ease,transform .08s ease;
+    transition:filter .15s ease,transform .08s ease;
   }
   .submit:active{transform:scale(.985);}
-  .submit:hover{background:var(--red-dark);}
-  .submit:disabled{background:#C9C5CE;cursor:not-allowed;}
+  .submit:hover{filter:brightness(1.08);}
+  .submit:disabled{background:#B9C6D9;cursor:not-allowed;}
   .error{
     margin-top:12px;
     font-size:13.5px;
-    color:var(--red-dark);
+    color:#B3261E;
     text-align:center;
     min-height:18px;
   }
@@ -149,12 +166,13 @@
     width:72px;height:72px;
     margin:0 auto 18px;
     border-radius:50%;
-    background:var(--ok);
+    background:var(--blue);
     color:#fff;
     font-size:38px;
     display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 18px rgba(11,78,162,.35);
   }
-  .success h2{font-size:21px;margin-bottom:8px;}
+  .success h2{font-size:21px;margin-bottom:8px;color:var(--blue-deep);}
   .success p{font-size:14.5px;color:var(--muted);line-height:1.55;}
   footer{
     font-size:12px;
@@ -169,9 +187,12 @@
 </head>
 <body>
 
+<div class="topbar"></div>
+
 <div class="band">
-  <div class="logo">BEC<span> | Bahrain Exchange Company</span></div>
-  <p>Your feedback helps us serve you better</p>
+  <img class="logo" src="bec-logo.png" alt="BEC — Bahrain Exchange Company">
+  <h1>Thank you for using BEC</h1>
+  <p>We appreciate your trust in Bahrain Exchange Company.<br>Please take a moment to tell us about your visit.</p>
 </div>
 
 <div class="card">
@@ -201,7 +222,7 @@
     </div>
 
     <div class="field">
-      <label class="label">Remarks <span style="text-transform:none;font-weight:500">(optional)</span></label>
+      <label class="label">Remarks <span style="text-transform:none;font-weight:500;color:var(--muted)">(optional)</span></label>
       <textarea id="remarks" maxlength="500" placeholder="Tell us more..."></textarea>
     </div>
 
@@ -242,14 +263,14 @@ function buildStars(containerId, hintId, key){
   for(let i = 1; i <= 5; i++){
     const b = document.createElement("button");
     b.type = "button";
-    b.textContent = "\u2605";
+    b.textContent = "★";
     b.setAttribute("role","radio");
     b.setAttribute("aria-label", i + " star" + (i>1?"s":""));
     b.addEventListener("click", () => {
       state[key] = i;
       [...box.children].forEach((el, idx) => el.classList.toggle("on", idx < i));
       hint.textContent = LABELS[i];
-      hint.style.color = i >= 4 ? "var(--ok)" : (i <= 2 ? "var(--red-dark)" : "var(--muted)");
+      hint.style.color = i >= 4 ? "var(--ok)" : (i <= 2 ? "#B3261E" : "var(--muted)");
     });
     box.appendChild(b);
   }
