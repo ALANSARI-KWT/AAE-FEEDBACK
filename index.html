@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BEC Customer Feedback</title>
+<title>Al Ansari Exchange Customer Feedback</title>
 <style>
   :root{
-    --blue:#0B4EA2;
-    --blue-dark:#083D80;
-    --blue-deep:#062F63;
-    --blue-tint:#E9F1FA;
-    --blue-tint-2:#D7E6F7;
-    --ink:#122A4B;
-    --muted:#5A6B85;
-    --line:#DCE6F2;
-    --bg:#F2F6FB;
+    --blue:#2B3990;
+    --blue-dark:#232E75;
+    --blue-deep:#1A2258;
+    --blue-tint:#EBEDF8;
+    --blue-tint-2:#D6DAF0;
+    --ink:#1C2140;
+    --muted:#5F6480;
+    --line:#DEE1F0;
+    --bg:#F3F4FA;
     --card:#FFFFFF;
     --ok:#1B8A4C;
     --warn:#B3261E;
@@ -92,7 +92,7 @@
     background:var(--card);
     border:1px solid var(--line);
     border-radius:16px;
-    box-shadow:0 10px 30px rgba(11,78,162,.12);
+    box-shadow:0 10px 30px rgba(43,57,144,.12);
     margin:-34px 0 40px;
     padding:26px 22px 28px;
   }
@@ -159,7 +159,7 @@
     border-radius:10px;
     background:#fff;
     font-size:26px;
-    color:#C6D3E4;
+    color:#C9CDE4;
     cursor:pointer;
     transition:transform .08s ease,color .12s ease,border-color .12s ease,background .12s ease;
   }
@@ -229,7 +229,7 @@
   }
   .submit:active{transform:scale(.985);}
   .submit:hover{filter:brightness(1.08);}
-  .submit:disabled{background:#B9C6D9;cursor:not-allowed;}
+  .submit:disabled{background:#BCC1DB;cursor:not-allowed;}
   .error{
     margin-top:12px;
     font-size:13.5px;
@@ -250,7 +250,7 @@
     color:#fff;
     font-size:38px;
     display:flex;align-items:center;justify-content:center;
-    box-shadow:0 6px 18px rgba(11,78,162,.35);
+    box-shadow:0 6px 18px rgba(43,57,144,.35);
   }
   .success h2{font-size:21px;margin-bottom:8px;color:var(--blue-deep);}
   .success p{font-size:14.5px;color:var(--muted);line-height:1.6;}
@@ -279,9 +279,9 @@
       <button type="button" id="langSi">සිංහල</button>
     </div>
   </div>
-  <img class="logo" src="bec-logo.png" alt="BEC — Bahrain Exchange Company">
-  <h1 data-i18n="title">Thank you for using BEC</h1>
-  <p data-i18n="subtitle">We appreciate your trust in Bahrain Exchange Company.<br>Please take a moment to tell us about your visit.</p>
+  <img class="logo" src="alansari-logo.png" alt="Al Ansari Exchange — الأنصاري للصرافة">
+  <h1 data-i18n="title">Thank you for using Al Ansari Exchange</h1>
+  <p data-i18n="subtitle">We appreciate your trust in Al Ansari Exchange.<br>Please take a moment to tell us about your visit.</p>
 </div>
 
 <div class="card">
@@ -349,19 +349,19 @@
 
 </div>
 
-<footer data-i18n="footer">&copy; Bahrain Exchange Company &middot; Kuwait</footer>
+<footer data-i18n="footer">&copy; Al Ansari Exchange &middot; Kuwait</footer>
 
 <script>
 /* ================= CONFIG ================= */
 /* Paste your Apps Script Web App URL here: */
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxZDJGCX8Wu92c8d2PFTNMcC9tjs_aLomn2OjrD56zkQgPfkB1-mLzk4MEDQ6r6wQCP/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx2LWX7J2QzyRey4wFMcVIBosRkBZJecz5VZvUHTKDLuT_dIIR3NeB8MLGegSCKUZ1CWw/exec";
 /* ========================================== */
 
 /* ---------- Translations ---------- */
 const I18N = {
   en: {
-    title: "Thank you for using BEC",
-    subtitle: "We appreciate your trust in Bahrain Exchange Company.\nPlease take a moment to tell us about your visit.",
+    title: "Thank you for using Al Ansari Exchange",
+    subtitle: "We appreciate your trust in Al Ansari Exchange.\nPlease take a moment to tell us about your visit.",
     branchLabel: "Branch Name",
     branchLoading: "Loading branches...",
     branchSelect: "Select your branch...",
@@ -393,11 +393,11 @@ const I18N = {
     errSubmit: "Could not submit. Please check your connection and try again.",
     thanks: "Thank you!",
     successMsg: "Your feedback for {branch} has been recorded.\nWe appreciate you taking the time.",
-    footer: "© Bahrain Exchange Company · Kuwait"
+    footer: "© Al Ansari Exchange · Kuwait"
   },
   ar: {
-    title: "شكراً لاستخدامكم BEC",
-    subtitle: "نقدّر ثقتكم بشركة البحرين للصرافة.\nنرجو منحنا لحظات لإخبارنا عن زيارتكم.",
+    title: "شكراً لاستخدامكم الأنصاري للصرافة",
+    subtitle: "نقدّر ثقتكم بالأنصاري للصرافة.\nنرجو منحنا لحظات لإخبارنا عن زيارتكم.",
     branchLabel: "اسم الفرع",
     branchLoading: "جاري تحميل الفروع...",
     branchSelect: "اختر الفرع...",
@@ -429,11 +429,11 @@ const I18N = {
     errSubmit: "تعذر الإرسال. يرجى التحقق من الاتصال والمحاولة مرة أخرى.",
     thanks: "شكراً لك!",
     successMsg: "تم تسجيل تقييمكم لفرع {branch}.\nنشكركم على وقتكم.",
-    footer: "شركة البحرين للصرافة · الكويت"
+    footer: "الأنصاري للصرافة · الكويت"
   },
   hi: {
-    title: "BEC का उपयोग करने के लिए धन्यवाद",
-    subtitle: "बहरीन एक्सचेंज कंपनी पर आपके भरोसे के लिए हम आभारी हैं।\nकृपया अपनी यात्रा के बारे में हमें बताने के लिए कुछ क्षण दें।",
+    title: "अल अंसारी एक्सचेंज का उपयोग करने के लिए धन्यवाद",
+    subtitle: "अल अंसारी एक्सचेंज पर आपके भरोसे के लिए हम आभारी हैं।\nकृपया अपनी यात्रा के बारे में हमें बताने के लिए कुछ क्षण दें।",
     branchLabel: "शाखा का नाम",
     branchLoading: "शाखाएँ लोड हो रही हैं...",
     branchSelect: "अपनी शाखा चुनें...",
@@ -465,11 +465,11 @@ const I18N = {
     errSubmit: "भेजा नहीं जा सका। कृपया कनेक्शन जाँचें और पुनः प्रयास करें।",
     thanks: "धन्यवाद!",
     successMsg: "{branch} शाखा के लिए आपका फीडबैक दर्ज कर लिया गया है।\nसमय देने के लिए धन्यवाद।",
-    footer: "© बहरीन एक्सचेंज कंपनी · कुवैत"
+    footer: "© अल अंसारी एक्सचेंज · कुवैत"
   },
   bn: {
-    title: "BEC ব্যবহার করার জন্য ধন্যবাদ",
-    subtitle: "বাহরাইন এক্সচেঞ্জ কোম্পানির প্রতি আপনার আস্থার জন্য আমরা কৃতজ্ঞ।\nঅনুগ্রহ করে আপনার ভিজিট সম্পর্কে আমাদের জানাতে কিছুটা সময় দিন।",
+    title: "আল আনসারি এক্সচেঞ্জ ব্যবহার করার জন্য ধন্যবাদ",
+    subtitle: "আল আনসারি এক্সচেঞ্জের প্রতি আপনার আস্থার জন্য আমরা কৃতজ্ঞ।\nঅনুগ্রহ করে আপনার ভিজিট সম্পর্কে আমাদের জানাতে কিছুটা সময় দিন।",
     branchLabel: "শাখার নাম",
     branchLoading: "শাখা লোড হচ্ছে...",
     branchSelect: "আপনার শাখা নির্বাচন করুন...",
@@ -501,11 +501,11 @@ const I18N = {
     errSubmit: "পাঠানো যায়নি। সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।",
     thanks: "ধন্যবাদ!",
     successMsg: "{branch} শাখার জন্য আপনার ফিডব্যাক সংরক্ষণ করা হয়েছে।\nসময় দেওয়ার জন্য ধন্যবাদ।",
-    footer: "© বাহরাইন এক্সচেঞ্জ কোম্পানি · কুয়েত"
+    footer: "© আল আনসারি এক্সচেঞ্জ · কুয়েত"
   },
   si: {
-    title: "BEC භාවිතා කිරීම ගැන ස්තූතියි",
-    subtitle: "බහරේන් එක්ස්චේන්ජ් සමාගම කෙරෙහි ඔබ තැබූ විශ්වාසයට අපි කෘතඥ වෙමු.\nඔබගේ පැමිණීම ගැන අපට කියන්න මොහොතක් ගන්න.",
+    title: "අල් අන්සාරි එක්ස්චේන්ජ් භාවිතා කිරීම ගැන ස්තූතියි",
+    subtitle: "අල් අන්සාරි එක්ස්චේන්ජ් කෙරෙහි ඔබ තැබූ විශ්වාසයට අපි කෘතඥ වෙමු.\nඔබගේ පැමිණීම ගැන අපට කියන්න මොහොතක් ගන්න.",
     branchLabel: "ශාඛාවේ නම",
     branchLoading: "ශාඛා පූරණය වෙමින්...",
     branchSelect: "ඔබේ ශාඛාව තෝරන්න...",
@@ -537,7 +537,7 @@ const I18N = {
     errSubmit: "යැවිය නොහැක. සම්බන්ධතාවය පරීක්ෂා කර නැවත උත්සාහ කරන්න.",
     thanks: "ස්තූතියි!",
     successMsg: "{branch} ශාඛාව සඳහා ඔබේ ප්‍රතිචාරය සටහන් විය.\nකාලය ගත කිරීම ගැන ස්තූතියි.",
-    footer: "© බහරේන් එක්ස්චේන්ජ් සමාගම · කුවේට්"
+    footer: "© අල් අන්සාරි එක්ස්චේන්ජ් · කුවේට්"
   }
 };
 
