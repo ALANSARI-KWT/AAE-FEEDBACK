@@ -170,30 +170,6 @@
     background:var(--blue-tint);
   }
   .stars button:focus-visible{outline:2px solid var(--blue);outline-offset:2px;}
-  .chips{
-    display:flex;
-    gap:8px;
-  }
-  .chips button{
-    flex:1;
-    padding:13px 6px;
-    border:1.5px solid var(--line);
-    border-radius:10px;
-    background:#fff;
-    font:inherit;
-    font-size:14.5px;
-    font-weight:600;
-    color:var(--ink);
-    cursor:pointer;
-    transition:transform .08s ease,border-color .12s ease,background .12s ease;
-  }
-  .chips button:active{transform:scale(.95);}
-  .chips button.on{
-    border-color:var(--blue);
-    background:var(--blue-tint);
-    color:var(--blue-deep);
-  }
-  .chips button:focus-visible{outline:2px solid var(--blue);outline-offset:2px;}
   .nps{
     display:grid;
     grid-template-columns:repeat(5,1fr);
@@ -330,30 +306,32 @@
     </div>
 
     <div class="field">
-      <label class="label" data-i18n="q1">&#11088; 1. Are you happy with our service today?</label>
+      <label class="label" data-i18n="q1">&#11088; 1. How satisfied were you with your visit today?</label>
       <div class="stars" id="happyStars" role="radiogroup" aria-label="Happy with service rating"></div>
       <div class="rate-hint" id="happyHint">Tap to rate</div>
     </div>
 
     <div class="field">
-      <label class="label" data-i18n="q2">&#129309; 2. Did we treat you with respect and a smile?</label>
+      <label class="label" data-i18n="q2">&#129309; 2. Did our staff treat you with respect?</label>
       <div class="stars" id="respectStars" role="radiogroup" aria-label="Respect and smile rating"></div>
       <div class="rate-hint" id="respectHint">Tap to rate</div>
     </div>
 
     <div class="field">
       <label class="label" data-i18n="q3">&#9889; 3. Were you served quickly?</label>
-      <div class="chips" id="speedChips" role="radiogroup" aria-label="Service speed"></div>
+      <div class="stars" id="speedStars" role="radiogroup" aria-label="Service speed rating"></div>
+      <div class="rate-hint" id="speedHint">Tap to rate</div>
     </div>
 
     <div class="field">
       <label class="label" data-i18n="q4">&#10084;&#65039; 4. Would you visit us again?</label>
-      <div class="chips" id="visitChips" role="radiogroup" aria-label="Visit again"></div>
+      <div class="stars" id="visitStars" role="radiogroup" aria-label="Visit again rating"></div>
+      <div class="rate-hint" id="visitHint">Tap to rate</div>
     </div>
 
 
     <div class="field">
-      <label class="label" data-i18n="q6nps">&#128202; 5. How likely are you to recommend us to a friend or colleague?</label>
+      <label class="label" data-i18n="q6nps">&#128202; 5. How likely are you to recommend us to your family and friends?</label>
       <div class="nps" id="npsGrid" role="radiogroup" aria-label="Recommendation likelihood 0 to 10"></div>
       <div class="rate-hint" data-i18n="npsHint">1 = Not at all likely &middot; 10 = Extremely likely</div>
     </div>
@@ -397,26 +375,23 @@ const I18N = {
     civilPh: "12-digit Civil ID",
     mobileLabel: "\u{1F4F1} Mobile Number",
     mobilePh: "8-digit mobile number",
-    q1: "⭐ 1. Are you happy with our service today?",
-    q2: "\u{1F91D} 2. Did we treat you with respect and a smile?",
+    q1: "⭐ 1. How satisfied were you with your visit today?",
+    q2: "\u{1F91D} 2. Did our staff treat you with respect?",
     q3: "⚡ 3. Were you served quickly?",
     q4: "❤️ 4. Would you visit us again?",
     q6: "\u{1F4AC} 6. How can we improve our service?",
-    q6nps: "\u{1F4CA} 5. How likely are you to recommend us to a friend or colleague?",
+    q6nps: "\u{1F4CA} 5. How likely are you to recommend us to your family and friends?",
     npsHint: "1 = Not at all likely · 10 = Extremely likely",
     optional: "(optional)",
     improvePh: "Your suggestions...",
     tapToRate: "Tap to rate",
     starLabels: ["", "Poor", "Fair", "Good", "Very good", "Excellent"],
-    fast: "\u{1F7E2} Fast", average: "\u{1F7E1} Average", slow: "\u{1F534} Slow",
-    yes: "✅ Yes", maybe: "\u{1F914} Maybe", no: "❌ No",
     submit: "Submit Feedback",
     submitting: "Submitting...",
     errBranch: "Please select your branch.",
     errCivil: "Please enter a valid 12-digit Civil ID number.",
     errMobile: "Please enter a valid 8-digit mobile number.",
-    errStars: "Please rate questions 1 and 2 before submitting.",
-    errChips: "Please answer questions 3 and 4 before submitting.",
+    errStars: "Please rate questions 1 to 4 before submitting.",
     errNps: "Please answer question 5 before submitting.",
     errSubmit: "Could not submit. Please check your connection and try again.",
     thanks: "Thank you!",
@@ -435,26 +410,23 @@ const I18N = {
     civilPh: "الرقم المدني (12 رقماً)",
     mobileLabel: "\u{1F4F1} رقم الهاتف",
     mobilePh: "رقم الهاتف (8 أرقام)",
-    q1: "⭐ 1. هل أنت راضٍ عن خدمتنا اليوم؟",
-    q2: "\u{1F91D} 2. هل تعاملنا معك باحترام وابتسامة؟",
+    q1: "⭐ 1. ما مدى رضاك عن زيارتك اليوم؟",
+    q2: "\u{1F91D} 2. هل عاملك موظفونا باحترام؟",
     q3: "⚡ 3. هل تمت خدمتك بسرعة؟",
     q4: "❤️ 4. هل ستزورنا مرة أخرى؟",
     q6: "\u{1F4AC} 6. كيف يمكننا تحسين خدمتنا؟",
-    q6nps: "\u{1F4CA} 5. ما مدى احتمال أن توصي بنا صديقاً أو زميلاً؟",
+    q6nps: "\u{1F4CA} 5. ما مدى احتمال أن توصي بنا عائلتك وأصدقاءك؟",
     npsHint: "1 = غير محتمل إطلاقاً · 10 = محتمل جداً",
     optional: "(اختياري)",
     improvePh: "اقتراحاتكم...",
     tapToRate: "اضغط للتقييم",
     starLabels: ["", "ضعيف", "مقبول", "جيد", "جيد جداً", "ممتاز"],
-    fast: "\u{1F7E2} سريع", average: "\u{1F7E1} متوسط", slow: "\u{1F534} بطيء",
-    yes: "✅ نعم", maybe: "\u{1F914} ربما", no: "❌ لا",
     submit: "إرسال التقييم",
     submitting: "جاري الإرسال...",
     errBranch: "يرجى اختيار الفرع.",
     errCivil: "يرجى إدخال رقم مدني صحيح مكون من 12 رقماً.",
     errMobile: "يرجى إدخال رقم هاتف صحيح مكون من 8 أرقام.",
-    errStars: "يرجى تقييم السؤالين 1 و2 قبل الإرسال.",
-    errChips: "يرجى الإجابة على السؤالين 3 و4 قبل الإرسال.",
+    errStars: "يرجى تقييم الأسئلة من 1 إلى 4 قبل الإرسال.",
     errNps: "يرجى الإجابة على السؤال 5 قبل الإرسال.",
     errSubmit: "تعذر الإرسال. يرجى التحقق من الاتصال والمحاولة مرة أخرى.",
     thanks: "شكراً لك!",
@@ -473,26 +445,23 @@ const I18N = {
     civilPh: "12 अंकों की सिविल आईडी",
     mobileLabel: "\u{1F4F1} मोबाइल नंबर",
     mobilePh: "8 अंकों का मोबाइल नंबर",
-    q1: "⭐ 1. क्या आप आज हमारी सेवा से खुश हैं?",
-    q2: "\u{1F91D} 2. क्या हमने आपके साथ सम्मान और मुस्कान से व्यवहार किया?",
+    q1: "⭐ 1. आज की अपनी विज़िट से आप कितने संतुष्ट हैं?",
+    q2: "\u{1F91D} 2. क्या हमारे स्टाफ ने आपके साथ सम्मान से व्यवहार किया?",
     q3: "⚡ 3. क्या आपको जल्दी सेवा मिली?",
     q4: "❤️ 4. क्या आप हमारे पास फिर आएँगे?",
     q6: "\u{1F4AC} 6. हम अपनी सेवा कैसे बेहतर बना सकते हैं?",
-    q6nps: "\u{1F4CA} 5. आप हमें किसी मित्र या सहकर्मी को सुझाने की कितनी संभावना रखते हैं?",
+    q6nps: "\u{1F4CA} 5. आप हमें अपने परिवार और दोस्तों को सुझाने की कितनी संभावना रखते हैं?",
     npsHint: "1 = बिल्कुल नहीं · 10 = पूरी संभावना",
     optional: "(वैकल्पिक)",
     improvePh: "आपके सुझाव...",
     tapToRate: "रेट करने के लिए टैप करें",
     starLabels: ["", "खराब", "ठीक-ठाक", "अच्छा", "बहुत अच्छा", "उत्कृष्ट"],
-    fast: "\u{1F7E2} तेज़", average: "\u{1F7E1} सामान्य", slow: "\u{1F534} धीमा",
-    yes: "✅ हाँ", maybe: "\u{1F914} शायद", no: "❌ नहीं",
     submit: "फीडबैक भेजें",
     submitting: "भेजा जा रहा है...",
     errBranch: "कृपया अपनी शाखा चुनें।",
     errCivil: "कृपया 12 अंकों की सही सिविल आईडी दर्ज करें।",
     errMobile: "कृपया 8 अंकों का सही मोबाइल नंबर दर्ज करें।",
-    errStars: "कृपया भेजने से पहले प्रश्न 1 और 2 को रेट करें।",
-    errChips: "कृपया भेजने से पहले प्रश्न 3 और 4 के उत्तर दें।",
+    errStars: "कृपया भेजने से पहले प्रश्न 1 से 4 तक रेट करें।",
     errNps: "कृपया भेजने से पहले प्रश्न 5 का उत्तर दें।",
     errSubmit: "भेजा नहीं जा सका। कृपया कनेक्शन जाँचें और पुनः प्रयास करें।",
     thanks: "धन्यवाद!",
@@ -511,26 +480,23 @@ const I18N = {
     civilPh: "12 সংখ্যার সিভিল আইডি",
     mobileLabel: "\u{1F4F1} মোবাইল নম্বর",
     mobilePh: "8 সংখ্যার মোবাইল নম্বর",
-    q1: "⭐ 1. আপনি কি আজ আমাদের সেবায় সন্তুষ্ট?",
-    q2: "\u{1F91D} 2. আমরা কি আপনার সাথে সম্মান ও হাসিমুখে আচরণ করেছি?",
+    q1: "⭐ 1. আজকের ভিজিট নিয়ে আপনি কতটা সন্তুষ্ট?",
+    q2: "\u{1F91D} 2. আমাদের কর্মীরা কি আপনার সাথে সম্মানের সাথে আচরণ করেছেন?",
     q3: "⚡ 3. আপনি কি দ্রুত সেবা পেয়েছেন?",
     q4: "❤️ 4. আপনি কি আবার আমাদের কাছে আসবেন?",
     q6: "\u{1F4AC} 6. আমরা কীভাবে আমাদের সেবা আরও ভালো করতে পারি?",
-    q6nps: "\u{1F4CA} 5. আপনি কোনো বন্ধু বা সহকর্মীকে আমাদের সুপারিশ করার সম্ভাবনা কতটা?",
+    q6nps: "\u{1F4CA} 5. আপনি আপনার পরিবার ও বন্ধুদের আমাদের সুপারিশ করার সম্ভাবনা কতটা?",
     npsHint: "1 = একেবারেই না · 10 = খুবই সম্ভব",
     optional: "(ঐচ্ছিক)",
     improvePh: "আপনার পরামর্শ...",
     tapToRate: "রেট করতে ট্যাপ করুন",
     starLabels: ["", "খারাপ", "মোটামুটি", "ভালো", "খুব ভালো", "চমৎকার"],
-    fast: "\u{1F7E2} দ্রুত", average: "\u{1F7E1} মাঝারি", slow: "\u{1F534} ধীর",
-    yes: "✅ হ্যাঁ", maybe: "\u{1F914} হয়তো", no: "❌ না",
     submit: "ফিডব্যাক পাঠান",
     submitting: "পাঠানো হচ্ছে...",
     errBranch: "অনুগ্রহ করে আপনার শাখা নির্বাচন করুন।",
     errCivil: "অনুগ্রহ করে 12 সংখ্যার সঠিক সিভিল আইডি দিন।",
     errMobile: "অনুগ্রহ করে 8 সংখ্যার সঠিক মোবাইল নম্বর দিন।",
-    errStars: "পাঠানোর আগে প্রশ্ন 1 ও 2 রেট করুন।",
-    errChips: "পাঠানোর আগে প্রশ্ন 3 ও 4 এর উত্তর দিন।",
+    errStars: "পাঠানোর আগে প্রশ্ন 1 থেকে 4 রেট করুন।",
     errNps: "পাঠানোর আগে প্রশ্ন 5 এর উত্তর দিন।",
     errSubmit: "পাঠানো যায়নি। সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।",
     thanks: "ধন্যবাদ!",
@@ -549,26 +515,23 @@ const I18N = {
     civilPh: "ඉලක්කම් 12ක සිවිල් හැඳුනුම්පත",
     mobileLabel: "\u{1F4F1} ජංගම දුරකථන අංකය",
     mobilePh: "ඉලක්කම් 8ක ජංගම අංකය",
-    q1: "⭐ 1. අද අපේ සේවාව ගැන ඔබ සතුටුද?",
-    q2: "\u{1F91D} 2. අපි ඔබට ගෞරවයෙන් සහ සිනහවෙන් සැලකුවාද?",
+    q1: "⭐ 1. අද ඔබේ පැමිණීම ගැන ඔබ කොතරම් සෑහීමකට පත්ද?",
+    q2: "\u{1F91D} 2. අපේ කාර්ය මණ්ඩලය ඔබට ගෞරවයෙන් සැලකුවාද?",
     q3: "⚡ 3. ඔබට ඉක්මනින් සේවාව ලැබුණාද?",
     q4: "❤️ 4. ඔබ නැවත අප වෙත එනවාද?",
     q6: "\u{1F4AC} 6. අපේ සේවාව වැඩිදියුණු කරන්නේ කෙසේද?",
-    q6nps: "\u{1F4CA} 5. මිතුරෙකුට හෝ සගයෙකුට අපව නිර්දේශ කිරීමට ඔබ කොතරම් ඉඩ තිබේද?",
+    q6nps: "\u{1F4CA} 5. ඔබේ පවුලේ අයට සහ මිතුරන්ට අපව නිර්දේශ කිරීමට ඔබ කොතරම් ඉඩ තිබේද?",
     npsHint: "1 = කිසිසේත් නැත · 10 = ඉතා ඉඩ ඇත",
     optional: "(අත්‍යවශ්‍ය නොවේ)",
     improvePh: "ඔබේ යෝජනා...",
     tapToRate: "ඇගයීමට තට්ටු කරන්න",
     starLabels: ["", "දුර්වලයි", "සාමාන්‍යයි", "හොඳයි", "ඉතා හොඳයි", "විශිෂ්ටයි"],
-    fast: "\u{1F7E2} වේගවත්", average: "\u{1F7E1} සාමාන්‍ය", slow: "\u{1F534} මන්දගාමී",
-    yes: "✅ ඔව්", maybe: "\u{1F914} සමහරවිට", no: "❌ නැහැ",
     submit: "ප්‍රතිචාරය යවන්න",
     submitting: "යවමින්...",
     errBranch: "කරුණාකර ඔබේ ශාඛාව තෝරන්න.",
     errCivil: "කරුණාකර ඉලක්කම් 12ක නිවැරදි සිවිල් හැඳුනුම්පත් අංකය ඇතුළත් කරන්න.",
     errMobile: "කරුණාකර ඉලක්කම් 8ක නිවැරදි ජංගම අංකය ඇතුළත් කරන්න.",
-    errStars: "යැවීමට පෙර ප්‍රශ්න 1 සහ 2 අගයන්න.",
-    errChips: "යැවීමට පෙර ප්‍රශ්න 3 සහ 4 ට පිළිතුරු දෙන්න.",
+    errStars: "යැවීමට පෙර ප්‍රශ්න 1 සිට 4 දක්වා අගයන්න.",
     errNps: "යැවීමට පෙර ප්‍රශ්න 5 ට පිළිතුරු දෙන්න.",
     errSubmit: "යැවිය නොහැක. සම්බන්ධතාවය පරීක්ෂා කර නැවත උත්සාහ කරන්න.",
     thanks: "ස්තූතියි!",
@@ -630,10 +593,12 @@ if(paramBranch){
 }
 
 /* ---------- Star ratings ---------- */
-const state = { happy: 0, respect: 0 };
+const state = { happy: 0, respect: 0, speed: 0, visit: 0 };
 const starMeta = {
   happy: {box: "happyStars", hint: "happyHint"},
-  respect: {box: "respectStars", hint: "respectHint"}
+  respect: {box: "respectStars", hint: "respectHint"},
+  speed: {box: "speedStars", hint: "speedHint"},
+  visit: {box: "visitStars", hint: "visitHint"}
 };
 
 function updateHint(key){
@@ -666,38 +631,8 @@ function buildStars(key){
 }
 buildStars("happy");
 buildStars("respect");
-
-/* ---------- Choice chips (points: best 5, middle 3, worst 1) ---------- */
-const choices = { speed: 0, visit: 0 };
-const chipMeta = {
-  speed: {box: "speedChips", options: [ {key:"fast", value:5}, {key:"average", value:3}, {key:"slow", value:1} ]},
-  visit: {box: "visitChips", options: [ {key:"yes", value:5}, {key:"maybe", value:3}, {key:"no", value:1} ]}
-};
-
-function buildChips(key){
-  const meta = chipMeta[key];
-  const box = document.getElementById(meta.box);
-  meta.options.forEach(opt => {
-    const b = document.createElement("button");
-    b.type = "button";
-    b.textContent = t(opt.key);
-    b.dataset.k = opt.key;
-    b.setAttribute("role","radio");
-    b.addEventListener("click", () => {
-      choices[key] = opt.value;
-      [...box.children].forEach(el => el.classList.toggle("on", el === b));
-    });
-    box.appendChild(b);
-  });
-}
-Object.keys(chipMeta).forEach(buildChips);
-
-function relabelChips(){
-  Object.keys(chipMeta).forEach(key => {
-    const box = document.getElementById(chipMeta[key].box);
-    [...box.children].forEach(el => { el.textContent = t(el.dataset.k); });
-  });
-}
+buildStars("speed");
+buildStars("visit");
 
 /* ---------- NPS 0-10 ---------- */
 let npsValue = -1;
@@ -748,9 +683,10 @@ function applyLang(){
   });
 
   renderBranchSelect();
-  relabelChips();
   updateHint("happy");
   updateHint("respect");
+  updateHint("speed");
+  updateHint("visit");
   if(!btn.disabled) btn.textContent = t("submit");
   err.textContent = "";
 }
@@ -788,12 +724,8 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
-  if(!state.happy || !state.respect){
+  if(!state.happy || !state.respect || !state.speed || !state.visit){
     err.textContent = t("errStars");
-    return;
-  }
-  if(!choices.speed || !choices.visit){
-    err.textContent = t("errChips");
     return;
   }
   if(npsValue < 1){
@@ -817,8 +749,8 @@ form.addEventListener("submit", async (e) => {
     mobile: mobile,
     happy: state.happy,
     respect: state.respect,
-    speed: choices.speed,
-    visitAgain: choices.visit,
+    speed: state.speed,
+    visitAgain: state.visit,
     nps: npsValue,
     improve: document.getElementById("improve").value.trim()
   };
