@@ -641,18 +641,35 @@ buildStars("visit");
 /* ---------- NPS 0-10 ---------- */
 let npsValue = -1;
 const npsGrid = document.getElementById("npsGrid");
+/* 1 = red ... 10 = green */
+const NPS_COLORS = ["#C62828","#D32F2F","#E53935","#EF6C00","#F57C00",
+                    "#F9A825","#9E9D24","#7CB342","#43A047","#2E7D32"];
+
+function paintNps(){
+  [...npsGrid.children].forEach(el => {
+    const c = el.dataset.color;
+    const selected = el.classList.contains("on");
+    el.style.color = selected ? "#fff" : c;
+    el.style.background = selected ? c : c + "14";
+    el.style.borderColor = c;
+  });
+}
+
 for(let i = 1; i <= 10; i++){
   const b = document.createElement("button");
   b.type = "button";
   b.textContent = i;
+  b.dataset.color = NPS_COLORS[i - 1];
   b.setAttribute("role","radio");
   b.setAttribute("aria-label", "Score " + i);
   b.addEventListener("click", () => {
     npsValue = i;
     [...npsGrid.children].forEach(el => el.classList.toggle("on", el === b));
+    paintNps();
   });
   npsGrid.appendChild(b);
 }
+paintNps();
 
 /* ---------- Language switching ---------- */
 const langEn = document.getElementById("langEn");
