@@ -540,6 +540,13 @@ const I18N = {
   }
 };
 
+/* Visitor IP (best-effort; blank if the lookup fails or is blocked) */
+let visitorIp = "";
+fetch("https://api.ipify.org?format=json")
+  .then(r => r.json())
+  .then(d => { visitorIp = (d && d.ip) || ""; })
+  .catch(() => { visitorIp = ""; });
+
 const params = new URLSearchParams(location.search);
 let lang = ["ar","hi","bn","si"].includes(params.get("lang")) ? params.get("lang") : "en";
 function t(key){ return I18N[lang][key]; }
@@ -752,7 +759,8 @@ form.addEventListener("submit", async (e) => {
     speed: state.speed,
     visitAgain: state.visit,
     nps: npsValue,
-    improve: document.getElementById("improve").value.trim()
+    improve: document.getElementById("improve").value.trim(),
+    ip: visitorIp
   };
 
   try{
