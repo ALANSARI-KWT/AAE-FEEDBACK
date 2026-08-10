@@ -292,9 +292,13 @@
       </select>
     </div>
 
-    <div class="field">
-      <label class="label"><span data-i18n="civilLabel">&#128100; Civil ID Number</span> <span class="req">*</span></label>
-      <input type="tel" id="civilId" inputmode="numeric" maxlength="12" data-i18n-ph="civilPh" placeholder="12-digit Civil ID" autocomplete="off">
+     <div class="field">
+      <div class="idtype" role="radiogroup" aria-label="ID type">
+        <button type="button" id="idCivil" class="on" data-i18n="idTypeCivil">Civil ID</button>
+        <button type="button" id="idPassport" data-i18n="idTypePassport">Passport</button>
+      </div>
+      <label class="label"><span id="idLabel">&#128100; Civil ID Number</span> <span class="req">*</span></label>
+      <input type="tel" id="civilId" inputmode="numeric" maxlength="12" placeholder="12-digit Civil ID" autocomplete="off">
     </div>
 
     <div class="field">
