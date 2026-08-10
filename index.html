@@ -122,7 +122,7 @@
     color:var(--blue-deep);
   }
   .branch-box .pin{color:var(--blue);font-size:18px;}
-  input[type=tel]{
+  input[type=tel],input[type=text]{
     width:100%;
     border:1.5px solid var(--line);
     border-radius:10px;
@@ -132,7 +132,7 @@
     color:var(--ink);
     background:#fff;
   }
-  input[type=tel]:focus{outline:none;border-color:var(--blue);}
+  input[type=tel]:focus,input[type=text]:focus{outline:none;border-color:var(--blue);}
   select{
     width:100%;
     border:1.5px solid var(--blue-tint-2);
@@ -174,6 +174,7 @@
     display:grid;
     grid-template-columns:repeat(5,1fr);
     gap:8px;
+    direction:ltr;
   }
   .nps button{
     padding:11px 0;
@@ -191,6 +192,31 @@
     box-shadow:0 4px 12px rgba(28,33,64,.28);
   }
   .nps button:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+  .idtype{
+    display:flex;
+    gap:8px;
+    margin-bottom:8px;
+  }
+  .idtype button{
+    flex:1;
+    padding:9px 6px;
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    background:#fff;
+    font:inherit;
+    font-size:14px;
+    font-weight:600;
+    color:var(--muted);
+    cursor:pointer;
+    transition:transform .08s ease,border-color .12s ease,background .12s ease,color .12s ease;
+  }
+  .idtype button:active{transform:scale(.96);}
+  .idtype button.on{
+    border-color:var(--blue);
+    background:var(--blue-tint);
+    color:var(--blue-deep);
+  }
+  .idtype button:focus-visible{outline:2px solid var(--blue);outline-offset:2px;}
   .rate-hint{
     margin-top:7px;
     font-size:13px;
@@ -292,7 +318,7 @@
       </select>
     </div>
 
-     <div class="field">
+    <div class="field">
       <div class="idtype" role="radiogroup" aria-label="ID type">
         <button type="button" id="idCivil" class="on" data-i18n="idTypeCivil">Civil ID</button>
         <button type="button" id="idPassport" data-i18n="idTypePassport">Passport</button>
@@ -374,6 +400,11 @@ const I18N = {
     branchError: "Could not load branches - reload page",
     civilLabel: "\u{1F464} Civil ID Number",
     civilPh: "12-digit Civil ID",
+    idTypeCivil: "Civil ID",
+    idTypePassport: "Passport",
+    passportLabel: "\u{1F6C2} Passport Number",
+    passportPh: "Passport number",
+    errPassport: "Please enter a valid passport number (6-12 letters or numbers).",
     mobileLabel: "\u{1F4F1} Mobile Number",
     mobilePh: "8-digit mobile number",
     q1: "⭐ 1. How satisfied were you with your visit today?",
@@ -409,6 +440,11 @@ const I18N = {
     branchError: "تعذر تحميل الفروع - أعد تحميل الصفحة",
     civilLabel: "\u{1F464} الرقم المدني",
     civilPh: "الرقم المدني (12 رقماً)",
+    idTypeCivil: "الرقم المدني",
+    idTypePassport: "جواز السفر",
+    passportLabel: "\u{1F6C2} رقم جواز السفر",
+    passportPh: "رقم جواز السفر",
+    errPassport: "يرجى إدخال رقم جواز سفر صحيح (من 6 إلى 12 حرفاً أو رقماً).",
     mobileLabel: "\u{1F4F1} رقم الهاتف",
     mobilePh: "رقم الهاتف (8 أرقام)",
     q1: "⭐ 1. ما مدى رضاك عن زيارتك اليوم؟",
@@ -444,6 +480,11 @@ const I18N = {
     branchError: "शाखाएँ लोड नहीं हो सकीं - पेज पुनः लोड करें",
     civilLabel: "\u{1F464} सिविल आईडी नंबर",
     civilPh: "12 अंकों की सिविल आईडी",
+    idTypeCivil: "सिविल आईडी",
+    idTypePassport: "पासपोर्ट",
+    passportLabel: "\u{1F6C2} पासपोर्ट नंबर",
+    passportPh: "पासपोर्ट नंबर",
+    errPassport: "कृपया सही पासपोर्ट नंबर दर्ज करें (6 से 12 अक्षर या अंक)।",
     mobileLabel: "\u{1F4F1} मोबाइल नंबर",
     mobilePh: "8 अंकों का मोबाइल नंबर",
     q1: "⭐ 1. आज की अपनी विज़िट से आप कितने संतुष्ट हैं?",
@@ -479,6 +520,11 @@ const I18N = {
     branchError: "শাখা লোড করা যায়নি - পেজ রিলোড করুন",
     civilLabel: "\u{1F464} সিভিল আইডি নম্বর",
     civilPh: "12 সংখ্যার সিভিল আইডি",
+    idTypeCivil: "সিভিল আইডি",
+    idTypePassport: "পাসপোর্ট",
+    passportLabel: "\u{1F6C2} পাসপোর্ট নম্বর",
+    passportPh: "পাসপোর্ট নম্বর",
+    errPassport: "অনুগ্রহ করে সঠিক পাসপোর্ট নম্বর দিন (6 থেকে 12 অক্ষর বা সংখ্যা)।",
     mobileLabel: "\u{1F4F1} মোবাইল নম্বর",
     mobilePh: "8 সংখ্যার মোবাইল নম্বর",
     q1: "⭐ 1. আজকের ভিজিট নিয়ে আপনি কতটা সন্তুষ্ট?",
@@ -514,6 +560,11 @@ const I18N = {
     branchError: "ශාඛා පූරණය කළ නොහැක - පිටුව නැවත පූරණය කරන්න",
     civilLabel: "\u{1F464} සිවිල් හැඳුනුම්පත් අංකය",
     civilPh: "ඉලක්කම් 12ක සිවිල් හැඳුනුම්පත",
+    idTypeCivil: "සිවිල් හැඳුනුම්පත",
+    idTypePassport: "ගමන් බලපත්‍රය",
+    passportLabel: "\u{1F6C2} ගමන් බලපත්‍ර අංකය",
+    passportPh: "ගමන් බලපත්‍ර අංකය",
+    errPassport: "කරුණාකර නිවැරදි ගමන් බලපත්‍ර අංකයක් ඇතුළත් කරන්න (අකුරු හෝ ඉලක්කම් 6-12).",
     mobileLabel: "\u{1F4F1} ජංගම දුරකථන අංකය",
     mobilePh: "ඉලක්කම් 8ක ජංගම අංකය",
     q1: "⭐ 1. අද ඔබේ පැමිණීම ගැන ඔබ කොතරම් සෑහීමකට පත්ද?",
@@ -599,6 +650,32 @@ if(paramBranch){
       renderBranchSelect();
     });
 }
+
+/* ---------- ID type: Civil ID (strict 12 digits) or Passport ---------- */
+let idMode = "civil";
+const idCivilBtn = document.getElementById("idCivil");
+const idPassportBtn = document.getElementById("idPassport");
+const idInput = document.getElementById("civilId");
+
+function applyIdMode(){
+  const civil = idMode === "civil";
+  idCivilBtn.classList.toggle("on", civil);
+  idPassportBtn.classList.toggle("on", !civil);
+  document.getElementById("idLabel").textContent = t(civil ? "civilLabel" : "passportLabel");
+  idInput.placeholder = t(civil ? "civilPh" : "passportPh");
+  idInput.type = civil ? "tel" : "text";
+  idInput.inputMode = civil ? "numeric" : "text";
+  idInput.maxLength = 12;
+}
+
+idCivilBtn.addEventListener("click", () => {
+  if(idMode === "civil") return;
+  idMode = "civil"; idInput.value = ""; err.textContent = ""; applyIdMode();
+});
+idPassportBtn.addEventListener("click", () => {
+  if(idMode === "passport") return;
+  idMode = "passport"; idInput.value = ""; err.textContent = ""; applyIdMode();
+});
 
 /* ---------- Star ratings ---------- */
 const state = { happy: 0, respect: 0, speed: 0, visit: 0 };
@@ -708,6 +785,7 @@ function applyLang(){
   });
 
   renderBranchSelect();
+  applyIdMode();
   updateHint("happy");
   updateHint("respect");
   updateHint("speed");
@@ -737,10 +815,18 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
-  const civilId = document.getElementById("civilId").value.trim();
-  if(!/^\d{12}$/.test(civilId)){
-    err.textContent = t("errCivil");
-    return;
+  let civilId = idInput.value.trim();
+  if(idMode === "civil"){
+    if(!/^\d{12}$/.test(civilId)){
+      err.textContent = t("errCivil");
+      return;
+    }
+  }else{
+    civilId = civilId.toUpperCase();
+    if(!/^[A-Z0-9]{6,12}$/.test(civilId)){
+      err.textContent = t("errPassport");
+      return;
+    }
   }
 
   const mobile = document.getElementById("mobile").value.trim();
